@@ -20,11 +20,13 @@ const TodoList = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!todoText) {
+    if (!todoText.trim()) {
       return;
     }
 
     setTodos([...todos, { id: crypto.randomUUID(), text: todoText }, ...todos]);
+
+    event.target.reset();
 
     setTodoText("");
   };
