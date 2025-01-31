@@ -14,29 +14,25 @@ const SAMPLE_TODOS = [
 ];
 
 const TodoList = () => {
-  const [todos, setTodos] = useState([SAMPLE_TODOS]);
+  const [todos, setTodos] = useState(SAMPLE_TODOS);
   const [todoText, setTodoText] = useState("");
 
   const handleSubmit = (e) => {
+    // 새로고침 막아주기
     e.preventDefault();
 
     if (!todoText.trim()) {
       return;
     }
 
-    setTodos([...todos, { id: crypto.randomUUID(), text: todoText }, ...todos]);
-
-    event.target.reset();
+    setTodos([{ id: crypto.randomUUID(), text: todoText }, ...todos]);
 
     setTodoText("");
   };
 
+  // input 창의 입력값을 가져오는 함수
   const handleChangeTodoText = (e) => {
     setTodoText(e.target.value);
-  };
-
-  const onDelete = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -46,12 +42,9 @@ const TodoList = () => {
         <button type="submit">제출하기</button>
       </form>
       <ul>
-        {todos.map(({ id, text }) => {
-          <li key={id}>
-            {text}
-            <button onClick={() => onDelete(id)}>삭제</button>
-          </li>;
-        })}
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
       </ul>
     </div>
   );
