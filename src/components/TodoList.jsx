@@ -25,7 +25,10 @@ const TodoList = () => {
       return;
     }
 
-    setTodos([{ id: crypto.randomUUID(), text: todoText }, ...todos]);
+    setTodos([
+      { id: crypto.randomUUID(), text: todoText, completed: false },
+      ...todos,
+    ]);
 
     setTodoText("");
   };
