@@ -1,4 +1,6 @@
 import { useState } from "react";
+import TodoItem from "./TodoItem";
+import TodoForm from "./TodoForm";
 
 const SAMPLE_TODOS = [
   { id: 1, text: "Buy milk", completed: false },
@@ -67,21 +69,21 @@ const TodoList = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={todoText} onChange={handleChangeTodoText} />
-        <button type="submit">제출하기</button>
-      </form>
+      <TodoForm
+        handleSubmit={handleSubmit}
+        todoText={todoText}
+        handleChangeTodoText={handleChangeTodoText}
+      />
       <ul>
         {todos.map(({ id, text, completed }) => (
-          <li key={id}>
-            <p style={{ textDecoration: completed ? "line-through" : "none" }}>
-              {text}
-            </p>
-            <button onClick={() => handleToggleCompleted(id)}>
-              {completed ? "취소하기" : "완료하기"}
-            </button>
-            <button onClick={() => handleDelete(id)}>삭제하기</button>
-          </li>
+          <TodoItem
+            key={id}
+            handleToggleCompleted={handleToggleCompleted}
+            handleDelete={handleDelete}
+            text={text}
+            completed={completed}
+            id={id}
+          />
         ))}
       </ul>
     </div>
