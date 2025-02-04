@@ -17,30 +17,12 @@ const SAMPLE_TODOS = [
 
 const TodoContainer = () => {
   const [todos, setTodos] = useState(SAMPLE_TODOS);
-  const [todoText, setTodoText] = useState("");
 
-  const handleSubmit = (e) => {
-    // 새로고침 막아주기
-    e.preventDefault();
-
-    if (!todoText.trim()) {
-      return;
-    }
-
-    setTodos([
-      { id: crypto.randomUUID(), text: todoText, completed: false },
-      ...todos,
-    ]);
-
-    setTodoText("");
+  const addTodos = (text) => {
+    setTodos([{ id: crypto.randomUUID(), text, completed: false }, ...todos]);
   };
 
-  // input 창의 입력값을 가져오는 함수
-  const handleChangeTodoText = (e) => {
-    setTodoText(e.target.value);
-  };
-
-  const handleToggleCompleted = (id) => {
+  const toggleTodoCompleted = (id) => {
     const updateTodos = todos.map((todo) => {
       if (todo.id === id) {
         return {
@@ -55,7 +37,7 @@ const TodoContainer = () => {
     setTodos(updateTodos);
   };
 
-  const handleDelete = (id) => {
+  const deleteTodo = (id) => {
     setTodos((prev) => {
       return prev.filter((todo) => {
         if (todo.id === id) {
@@ -69,16 +51,12 @@ const TodoContainer = () => {
 
   return (
     <div>
-      <TodoForm
-        handleSubmit={handleSubmit}
-        todoText={todoText}
-        handleChangeTodoText={handleChangeTodoText}
-      />
+      <TodoForm addTodos={addTodos} />
 
       <TodoList
         todos={todos}
-        handleToggleCompleted={handleToggleCompleted}
-        handleDelete={handleDelete}
+        toggleTodoCompleted={toggleTodoCompleted}
+        deleteTodo={deleteTodo}
       />
     </div>
   );

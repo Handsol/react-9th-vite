@@ -1,14 +1,14 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, handleToggleCompleted, handleDelete }) => {
+const TodoList = ({ todos, toggleTodoCompleted, deleteTodo }) => {
   return (
     <ul>
       {todos.map(({ id, text, completed }) => (
         <TodoItem
           key={id}
-          handleToggleCompleted={handleToggleCompleted}
-          handleDelete={handleDelete}
+          toggleTodoCompleted={toggleTodoCompleted}
+          deleteTodo={deleteTodo}
           text={text}
           completed={completed}
           id={id}
