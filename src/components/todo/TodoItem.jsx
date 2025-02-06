@@ -1,5 +1,3 @@
-import React from "react";
-
 const TodoItem = ({ id, text, completed, toggleTodoCompleted, deleteTodo }) => {
   return (
     <li>
