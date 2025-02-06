@@ -18,7 +18,7 @@ const TodoDashboard = ({ all = 0, completed = 0, pending = 0 }) => {
           </TodoDashboardCard>
         </TodoDashboardCardWrapper>
         <TodoDashboardCardWrapper $flex={1}>
-          <TodoDashboardCard style={{ backgroundColor: "#592be6" }}>
+          <TodoDashboardCard $bgColor="#592be6">
             <div>
               <LaptopMinimal />
             </div>
@@ -28,7 +28,7 @@ const TodoDashboard = ({ all = 0, completed = 0, pending = 0 }) => {
           </TodoDashboardCard>
         </TodoDashboardCardWrapper>
         <TodoDashboardCardWrapper $flex={1}>
-          <TodoDashboardCard style={{ backgroundColor: "#242424" }}>
+          <TodoDashboardCard $bgColor="#242424">
             <div>
               <Video />
             </div>
@@ -69,7 +69,7 @@ const TodoDashboardCard = styled.button`
   flex-direction: column;
   height: 184px;
   width: 100%;
-  background-color: #e6582b;
+  background-color: ${({ $bgColor = "#e6582b" }) => $bgColor};
   justify-content: space-between;
   color: white;
   padding: 1.25rem;
