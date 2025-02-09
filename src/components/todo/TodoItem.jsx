@@ -24,12 +24,15 @@ const TodoItem = ({ id, text, completed, toggleTodoCompleted, deleteTodo }) => {
 const TodoItemWrapper = styled.li`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
   background-color: white;
   padding: 1.25rem;
   border-radius: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  justify-content: space-between;
-  align-items: center;
 `;
 
 const TodoItemText = styled.p`
@@ -40,16 +43,18 @@ const TodoItemText = styled.p`
 const TodoItemActions = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 1rem;
 `;
 
-const ActionButton = styled.button`
+export const ActionButton = styled.button`
   background-color: ${(props) => props.$bgColor};
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
+  word-break: keep-all;
 
   &:hover {
     opacity: 0.8;
