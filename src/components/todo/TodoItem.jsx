@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { TodoContext } from "../../../context/TodoContext";
 
-const TodoItem = ({ id, text, completed, toggleTodoCompleted, deleteTodo }) => {
+const TodoItem = ({ id, text, completed }) => {
+  const { toggleTodoCompleted, deleteTodo } = useContext(TodoContext);
+
   return (
     <TodoItemWrapper>
       <TodoItemText $completed={completed}> {text} </TodoItemText>
