@@ -1,10 +1,17 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { TodoContext } from "../../../context/TodoContext";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const TodoItem = ({ id, text, completed }) => {
   const { toggleTodoCompleted, deleteTodo } = useContext(TodoContext);
+  const navigate = useNavigate();
+
+  const navigateAfterDelete = (id) => {
+    deleteTodo(id);
+
+    navigate("/");
+  };
 
   return (
     <TodoItemWrapper>
@@ -20,7 +27,10 @@ const TodoItem = ({ id, text, completed }) => {
           {completed ? "취소하기" : "완료하기"}
         </ActionButton>
 
-        <ActionButton onClick={() => deleteTodo(id)} $bgColor="#e6582b">
+        <ActionButton
+          onClick={() => navigateAfterDelete(id)}
+          $bgColor="#e6582b"
+        >
           삭제하기
         </ActionButton>
       </TodoItemActions>
