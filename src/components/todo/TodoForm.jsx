@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ActionButton } from "./TodoItem";
 import { TodoContext } from "../../../context/TodoContext";
 
 const TodoForm = () => {
   const { addTodos } = useContext(TodoContext);
-
   const [todoText, setTodoText] = useState("");
+  const inputRef = useRef(null);
 
   const handleSubmit = (e) => {
     // 새로고침 막아주기
@@ -26,6 +26,10 @@ const TodoForm = () => {
     setTodoText(e.target.value);
   };
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <TodoFormWrapper onSubmit={handleSubmit}>
       <TodoFormInput
@@ -33,6 +37,7 @@ const TodoForm = () => {
         value={todoText}
         onChange={handleChangeTodoText}
         placeholder="일정을 입력하세요"
+        ref={inputRef}
       />
       <SubmitButton type="submit" $bgColor="#582be6">
         제출하기
