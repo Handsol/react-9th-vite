@@ -1,40 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoContext } from "../../../context/TodoContext";
-import { SAMPLE_TODOS } from "../../constants/sample-todos";
+import { todoClient } from "../../lib/todoClient";
 
 const TodoProvider = ({ children }) => {
-  const [todos, setTodos] = useState(SAMPLE_TODOS);
+  const [todos, setTodos] = useState([]);
 
-  const addTodos = (text) => {
-    setTodos([{ id: crypto.randomUUID(), text, completed: false }, ...todos]);
+  const getTodos = async () => {
+    const { data } = await todoClient.get("/");
+
+    setTodos(data);
   };
 
-  const toggleTodoCompleted = (id) => {
-    const updateTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          completed: !todo.completed,
-        };
-      }
-
-      return todo;
+  const addTodos = async (text) => {
+    const { data } = await todoClient.post("/", {
+      text,
+      completed: false,
     });
 
-    setTodos(updateTodos);
+    await getTodos();
+
+    return data;
   };
 
-  const deleteTodo = (id) => {
-    setTodos((prev) => {
-      return prev.filter((todo) => {
-        if (todo.id === id) {
-          return false;
-        }
-
-        return true;
-      });
+  const toggleTodoCompleted = async (id, currentCompleted) => {
+    const { data } = await todoClient.patch(`/${id}`, {
+      completed: !currentCompleted,
     });
+
+    await getTodos();
+
+    return data;
   };
+
+  const deleteTodo = async (id) => {
+    const { data } = await todoClient.delete(`/${id}`);
+
+    await getTodos();
+
+    return data;
+  };
+
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   return (
     <TodoContext.Provider
