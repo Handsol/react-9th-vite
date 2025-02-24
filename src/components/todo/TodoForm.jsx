@@ -1,22 +1,24 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { ActionButton } from "./TodoItem";
-import { TodoContext } from "../../../context/TodoContext";
+import { useMutation } from "@tanstack/react-query";
 
 const TodoForm = () => {
-  const { addTodos } = useContext(TodoContext);
+  const { mutate: addTodoMutate } = useMutation({
+    mutationFn: addTodos,
+  });
+
   const [todoText, setTodoText] = useState("");
   const inputRef = useRef(null);
 
   const handleSubmit = (e) => {
-    // 새로고침 막아주기
     e.preventDefault();
 
     if (!todoText.trim()) {
       return;
     }
 
-    addTodos(todoText);
+    addTodoMutate(todoText);
 
     setTodoText("");
   };

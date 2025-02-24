@@ -1,14 +1,27 @@
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
-import { useContext } from "react";
-import { TodoContext } from "../../../context/TodoContext";
-import { useSearchParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const TodoList = () => {
-  const { todos } = useContext(TodoContext);
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
+  // const selectedFilter = searchParams.get("filter");
 
-  const selectedFilter = searchParams.get("filter");
+  const {
+    data: todos,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["todos"],
+    queryFn: getTodos,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching todos - {error}</div>;
+  }
 
   const getFilterTodos = (selectedFilter) => {
     if (selectedFilter === "completed") {
@@ -28,7 +41,7 @@ const TodoList = () => {
     <TodoListSection>
       <TodoListHeader>Tasks</TodoListHeader>
       <TodoListContent>
-        {filterTodos.map(({ id, text, completed }) => (
+        {todos?.map(({ id, text, completed }) => (
           <TodoItem key={id} text={text} completed={completed} id={id} />
         ))}
       </TodoListContent>
