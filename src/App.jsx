@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import { HomePage } from "./pages/HomePage";
 import { TodoDetailPage } from "./pages/TodoDetailPage";
-import { RootLayout } from "./components/todo/layout/RootLayout";
-import QueryProvider from "./components/todo/provider/QueryProvider";
 import { useThemeStore } from "./hooks/useThemeStore";
 import { useEffect } from "react";
+import RootLayout from "./components/layout/RootLayout";
+import QueryProvider from "./components/provider/QueryProvider";
 
 export const App = () => {
   const { theme } = useThemeStore();
