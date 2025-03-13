@@ -32,3 +32,20 @@ export const deleteTodo = async (id: Todo["id"]) => {
 
   return data;
 };
+
+// 할 일 완료 여부(업데이트) 로직
+export const toggleTodoCompleted = async (
+  id: Todo["id"],
+  completed: Todo["completed"]
+) => {
+  const response = await fetch(`${BASE_URL}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ completed: !completed })
+  });
+  const data: Todo = await response.json();
+
+  return data;
+};
