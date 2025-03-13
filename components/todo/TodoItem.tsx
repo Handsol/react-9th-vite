@@ -2,6 +2,7 @@
 
 import { deleteTodo, toggleTodoCompleted } from "@/api/todo.api";
 import { Todo } from "@/types/todo.type";
+import Link from "next/link";
 
 interface TodoItemProps {
   todo: Todo;
@@ -11,16 +12,18 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   const { completed, id, text } = todo;
 
   return (
-    <div>
-      <h2>{text}</h2>
+    <article>
+      <Link href={`/${id}`}>
+        <h2>{text}</h2>
+      </Link>
       <p>{completed ? "완료" : "미완료"}</p>
       <div>
         <button onClick={() => toggleTodoCompleted(id, !completed)}>
-          Complete
+          {completed ? "Pending" : "Complete"}
         </button>
         <button onClick={() => deleteTodo(id)}>Delete</button>
       </div>
-    </div>
+    </article>
   );
 };
 
