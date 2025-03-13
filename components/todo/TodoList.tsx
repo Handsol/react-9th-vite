@@ -1,5 +1,5 @@
 import { getTodos } from "@/api/todo.api";
-import { TodoItem } from "./TodoItem";
+import TodoItem from "./TodoItem";
 
 export const TodoList = async () => {
   const todos = await getTodos();
