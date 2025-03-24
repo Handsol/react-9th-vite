@@ -1,10 +1,11 @@
 "use client";
 
-import { deleteTodo, toggleTodoCompleted } from "@/api/todo.api";
+import { toggleTodoCompleted } from "@/api/todo.api";
 import { Todo } from "@/types/todo.type";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import TodoDeleteButton from "./layout/TodoDeleteButton";
 
 interface TodoItemProps {
   todo: Todo;
@@ -28,9 +29,8 @@ const TodoItem = ({ todo }: TodoItemProps) => {
         >
           {completed ? "Pending" : "Complete"}
         </Button>
-        <Button onClick={() => deleteTodo(id)} variant="destructive">
-          Delete
-        </Button>
+
+        <TodoDeleteButton id={id} />
       </div>
     </article>
   );
