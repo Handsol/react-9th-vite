@@ -26,10 +26,10 @@ export const TodoForm = () => {
         type="text"
         name="todo-text"
         required
-        placeholder="할 일을 입력하세요."
+        placeholder="Insert what you have to do"
         className="bg-white"
       />
-      <Button type="submit">추가하기</Button>
+      <Button type="submit">add todo</Button>
     </form>
   );
 };
